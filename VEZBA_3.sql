@@ -1,48 +1,108 @@
 --Zadatak 1: Prikazati za svakog radnika ime, posao, kao i broj odeljenja, 
 --naziv i mesto odeljenja u kome radi.
 
-
+select ime, posao, r.id_odeljenja, ime_od, mesto
+from radnik r join odeljenje o
+	 on r.id_odeljenja = o.id_odeljenja;
 
 --Zadatak 2: Prikazati nazive odeljenja, ime i posao svakog radnika koji u njima rade, 
 --ukljucujuci i radnike koji nisu rasporedjeni ni u jednom odeljenju.
 
 --a) Upotrebom desnog spajanja - RIGHT JOIN 
 
-
+select ime_od, ime, posao
+from odeljenje o right join radnik r
+	 on o.Id_odeljenja = r.Id_odeljenja;
 
 --b) Upotrebom LEFT JOIN
 
+select ime_od, ime, posao
+from radnik r left join odeljenje o
+	 on o.Id_odeljenja = r.Id_odeljenja;
 
-
---Zadatak 3: Prikazati nazive odeljenja, ime i posao svakog radnika koji u njima rade uklju?uju?i i radnike
+--Zadatak 3: Prikazati nazive odeljenja, ime i posao svakog radnika koji u njima rade ukljucujuci i radnike
 --koji nisu raspore?eni ni u jednom odeljenju, kao i odeljenja u kojima ne radi ni jedan radnik.
 
+select ime_od, ime, posao
+from radnik r full outer join odeljenje o
+	 on r.id_odeljenja = o.id_odeljenja;
 
 
 --Zadatak 4: Prikazati imena projekata na kojima rade i Marko i Mirjana (zajedno).
 
 --a) Samo presek projekata
 
+select ime_proj
+from projekat p join ucesce u
+	 on p.id_projekta = u.id_projekta
+	 join radnik r 
+	 on u.Id_radnika = r.Id_radnika
+	 and ime = N'Marko'
+
+intersect
+
+select ime_proj
+from projekat p join ucesce u
+	 on p.id_projekta = u.id_projekta
+	 join radnik r 
+	 on u.Id_radnika = r.Id_radnika
+	 and ime = N'Mirjana'
 
 
 --b) Projekti na kojima radi Marko, a Mirjana ne radi.
 
+select ime_proj
+from projekat p join ucesce u
+	 on p.id_projekta = u.id_projekta
+	 join radnik r 
+	 on u.Id_radnika = r.Id_radnika
+	 and ime = N'Marko'
 
+except
+
+select ime_proj
+from projekat p join ucesce u
+	 on p.id_projekta = u.id_projekta
+	 join radnik r 
+	 on u.Id_radnika = r.Id_radnika
+	 and ime = N'Mirjana'
 
 --c) Prikazati projekte na kojima radi bilo ko od njh dvoje (bez ponavljanja).
 
 
+select ime_proj
+from projekat p join ucesce u
+	 on p.id_projekta = u.id_projekta
+	 join radnik r 
+	 on u.Id_radnika = r.Id_radnika
+	 and ime = N'Marko'
 
---Zadatak 5: Izlistati zaposlene (id_radnika, ime i prezime u jednoj koloni), projekat (brproj i imeproj), broj
---sati, broj radnih dana po pomenutom uslovu i funkciju za sve zaposlene koji u?estvuju na projektima. Ako
---je broj sati ve?i ili jednak od 1000 radni dan je 10 sati u protivnom je 8 sati.
+union
 
+select ime_proj
+from projekat p join ucesce u
+	 on p.id_projekta = u.id_projekta
+	 join radnik r 
+	 on u.Id_radnika = r.Id_radnika
+	 and ime = N'Mirjana'
+
+--Zadatak 5: Izlistati zaposlene (id_radnika, ime i prezime u jednoj koloni), projekat (brproj i imeproj), 
+--broj sati, broj radnih dana po pomenutom uslovu i funkciju za sve zaposlene koji ucestvuju na projektima. 
+--Ako je broj sati veci ili jednak od 1000 radni dan je 10 sati u protivnom je 8 sati.
+
+select r.id_radnika, rtrim(r.ime) + N' ' + rtrim(r.prezime) as 'Zaposleni',
+	   p.id_projekta, p.ime_proj, u.br_sati, u.funkcija,
+	   case 
+			when u.br_sati >= 1000 then br_sati/10
+			else br_sati/8
+		end as 'Radni dani'
+from radnik r join ucesce u on r.id_radnika = u.id_radnika
+	 join projekat p on u.id_projekta = p.id_projekta
 
 
 --Zadatak 6:Izlistati zaposlene koje rade na projektu 100 (idbr, ime i prezime), njihovu platu, premiju,
 --naknadu po uslovu broja radnih sati i broj radnih sati. Ako je broj sati ve?i ili jednak 1500 naknada je
 --jednaka primanjima u protivnom je jednaka plati.
-
 
 
 --Zadatak 7: Zaposlenima u odeljenju smeštenom na Novom Beogradu povecati platu 30%.
