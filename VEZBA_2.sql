@@ -35,7 +35,7 @@ where kvalif in ('VSS', 'VKV');
 --Zadatak 5. Prikazati ime i broj odeljenja zaposlenih koji rade u odeljenju 10 ili 20,
 --a kvalifikacija imje VKV.
 
-select ime, posao, kvalif
+select ime, id_odeljenja 
 from radnik
 where id_odeljenja in (10, 20) and
       kvalif = N'VKV';
@@ -66,13 +66,13 @@ where ime not like 'p%'
 
 select ime, kvalif, plata, premija
 from radnik 
-where premija is not null;
+where premija is not null and premija != 0;
 
 --Zadatak 9b. Prikazati ime, kvalifikaciju, platu i premiju zaposlenih koji nemaju premiju.
 
 select ime, kvalif, plata, premija
 from radnik
-where premija is null;
+where premija is null or premija = 0;
 
 
 --Zadatak 10. Prikazati brojeve odeljenja i srednju platu u svakom od njih.
