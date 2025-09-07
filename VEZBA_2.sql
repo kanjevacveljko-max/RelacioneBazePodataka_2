@@ -28,7 +28,9 @@ where posao = N'savetnik' and plata > 2000;
 --Zadatak 4. Prikazati ime, posao i kvalifikaciju zaposlenih koji imaju kvalifikaciju
 --VSS ili VKV.
 
-select ime, posao, 
+select ime, posao, kvalif
+from radnik
+where kvalif in ('VSS', 'VKV');
 
 --Zadatak 5. Prikazati ime i broj odeljenja zaposlenih koji rade u odeljenju 10 ili 20,
 --a kvalifikacija imje VKV.
