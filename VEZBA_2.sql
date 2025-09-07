@@ -135,27 +135,49 @@ from radnik;
 
 --Zadatak 16. Prikazati ime i posao svih radnika koji rade na Novom Beogradu. 
 
-
+select ime, posao
+from radnik
+where id_odeljenja = (select id_odeljenja 
+                      from odeljenje
+                      where mesto = N'Novi Beograd');
 
 --Zadatak 17. Prikazati ime, posao i kvalifikaciju svih radnika koji imaju istu
 --kvalifikaciju kao Mitar. 
 
-
+select ime, posao, kvalif 
+from radnik 
+where kvalif = (select kvalif
+                from radnik
+                where ime = N'Mitar');
 
 --Zadatak 18. Izlistaj ime, posao i platu zaposlenih u odeljenju 10, koji imaju isti posao kao zaposleni u
 --odeljenju Plan. 
 
-
+select ime, posao, plata
+from radnik
+where id_odeljenja = 10 and posao in (select posao
+                                      from radnik
+                                      where id_odeljenja = (select id_odeljenja
+                                                            from odeljenje
+                                                            where ime_od = N'Plan'));
 
 --Zadatak 19:Prikazati ime i primanja svih zaposlenih čija su primanja veća od prosečnog primanja u
 --preduzeću. 
 
-
+select ime, (plata + isnull(premija, 0)) as [Ukupna primanja]
+from radnik
+where (plata + isnull(premija, 0)) > (select avg(plata + isnull(premija, 0))
+                                      from radnik);
 
 --Zadatak 20: Prikazati ime, datum zaposlenja i primanja zaposlenih koji su angažovani na dva projekta.
 --Rezultate urediti po datumu zaposlenja u opadajućem redosledu.
 
-
+select ime, dat_zap, (plata + isnull(premija, 0)) as [primanja]
+from radnik
+where id_radnika in (select id_radnika
+                     from ucesce
+                     group by id_radnika
+                     having count(*) > 2);
 
 --***TABELARNI PODUPITI***--
 
