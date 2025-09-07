@@ -93,25 +93,42 @@ order by [Ukupna plata];
 --u kojima je srednja plata manja od 2000. Srednju vrednost plate zaokruziti na dve decimale.
 --Sortirati po srednjoj vrednosti plate u opadajucem redosledu.
 
-
+select id_odeljenja, round(avg(plata),2) as [Prosecna plata]
+from radnik
+group by id_odeljenja
+having avg(plata) < 2000
+order by avg(plata) desc;
 
 --Zadatak 13a. Za svako odeljenje prikazati ukupan broj radnika koji primaju premiju. 
 
-
+select id_odeljenja, count(*) as [Broj radnika]
+from radnik
+where premija is not null
+group by id_odeljenja;
 
 --Zadatak 13b. Za svako odeljenje prikazati ukupan broj radnika koji primaju premiju, 
 --samo ako je taj ukupan broj radnika veći od 3.
 
-
+select id_odeljenja, count(*) as [Broj radnika]
+from radnik
+where premija is not null
+group by id_odeljenja
+having count(*) > 3;
 
 --Zadatak 14. Za svako odeljenje prikazati broj radnika i ukupna primanja. 
 --Ne prikazivati ukupna primanja neraspoređenih radnika. Sortirati po ukupnim primanjima rastuće.
 
-
+select id_odeljenja, count(*) as [Broj radnika], 
+       sum(plata + isnull(premija, 0)) as [Ukupna primanja]
+from radnik
+where id_odeljenja is not null
+group by id_odeljenja
+order by [Ukupna primanja];
 
 --Zadatak 15. Upisati u jednom polju “Zarada radnika (ime) je (plata)”. 
 
-
+select 'Zarada radnika ' + ime + ' je ' + CONVERT(nchar, plata)
+from radnik;
 
 --***SKALARNI I VISEVREDNOSNI UPITI***--
 
