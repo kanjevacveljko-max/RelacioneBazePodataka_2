@@ -35,36 +35,59 @@ where kvalif in ('VSS', 'VKV');
 --Zadatak 5. Prikazati ime i broj odeljenja zaposlenih koji rade u odeljenju 10 ili 20,
 --a kvalifikacija imje VKV.
 
+select ime, posao, kvalif
+from radnik
+where id_odeljenja in (10, 20) and
+      kvalif = N'VKV';
 
 
 --Zadatak 6. Prikazati ime, datum zaposlenja, platu, premiju i broj odeljenja za zaposlene
 --koji imaju platu izmedju 1000 i 2000 ukljucujuci i te vrednosti.
 
-
+select ime, dat_zap, plata, premija, id_odeljenja
+from radnik
+where plata between 1000 and 2000;
 
 --Zadatak 7. Prikazati ime odeljenja cije ime pocinje slovom P.
 
-
+select ime_od 
+from odeljenje
+where ime_od like 'p%';
 
 --Zadatak 8. Prikazati ime i posao zaposlenih cije ime ne pocinje slovom P, a plata im je
 --razlicita od 2000. Rezultate urediti po plati u opadajucem redosledu.
 
+select ime, posao
+from radnik
+where ime not like 'p%' 
+      and plata != 2000;
 
 --Zadatak 9a. Prikazati ime, kvalifikaciju, platu i premiju zaposlenih koji imaju premiju.
 
+select ime, kvalif, plata, premija
+from radnik 
+where premija is not null;
 
 --Zadatak 9b. Prikazati ime, kvalifikaciju, platu i premiju zaposlenih koji nemaju premiju.
 
+select ime, kvalif, plata, premija
+from radnik
+where premija is null;
 
 
 --Zadatak 10. Prikazati brojeve odeljenja i srednju platu u svakom od njih.
 
-
+select id_odeljenja, avg(plata) as [Prosecna plata]
+from radnik
+group by id_odeljenja;
 
 --Zadatak 11. Prikazati za svaki posao ukupnu platu radnika koji ga obavljaju. Rezultate
 --urediti po ukupnoj plati u rastucem redosledu.
 
-
+select posao, sum(plata) as [Ukupna plata]
+from radnik
+group by posao
+order by [Ukupna plata];
 
 --Zadatak 12. Prikazati brojeve odeljenja i srednju platu u svakom od njih, samo za odeljenja
 --u kojima je srednja plata manja od 2000. Srednju vrednost plate zaokruziti na dve decimale.
