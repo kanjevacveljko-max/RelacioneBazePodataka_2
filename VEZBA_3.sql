@@ -104,27 +104,51 @@ from radnik r join ucesce u on r.id_radnika = u.id_radnika
 --naknadu po uslovu broja radnih sati i broj radnih sati. Ako je broj sati ve?i ili jednak 1500 naknada je
 --jednaka primanjima u protivnom je jednaka plati.
 
+select r.id_radnika, r.ime, r.prezime, r.plata, r.premija, u.br_sati,
+       case when u.br_sati >= 1500 then plata + isnull(premija, 0)
+	        else plata
+		end as Naknada
+from radnik r join ucesce u on r.Id_radnika = u.Id_radnika
 
 --Zadatak 7: Zaposlenima u odeljenju smeštenom na Novom Beogradu povecati platu 30%.
 
-
+update radnik 
+set plata = plata * 1.3
+where id_odeljenja = (select id_odeljenja
+					  from odeljenje 
+					  where mesto = N'Novi Beograd');
 
 --Zadatak 8:Zaposlenima u odeljenju smeštenom na Dorcolu dodeliti premiju u iznosu 40% od plate, a
 --platu povecati za 100, ne uzimajuci u obzir direktore i upravnike.
 
+update radnik
+set premija = plata * 0.4,
+	plata = plata + 100
+where posao not in ('direktor', 'upravnik')
+      and id_odeljenja = (select id_odeljenja
+						  from odeljenje
+						  where mesto = 'Dor?ol');
 
+--Zadatak 9: Radnicima cija je kvalifikacija KV povecati platu 10%, VKV 5% a VSS smanjiti platu 5%.
 
---Zadatak 9: Radnicima ?ija je kvalifikacija KV povecati platu 10%, VKV 5% a VSS smanjiti platu 5%.
-
-
+update radnik 
+set plata = case kvalif 
+			when 'KV' then plata * 1.1
+			when 'VKV' then plata * 1.05
+			when 'VSS' then plata * 0.95
+			end;
 
 --Zadatak 10: Radnicima koji nemaju premiju dodeliti premiju 150. Radnicima cija je premija manja od
 --1000 povecati premiju 15% a ostalim radnicima ne menjati premiju.
 
+update radnik 
+set premija = case
+			  when premija is null then 150
+			  when premija between 0 and 1000 then premija * 1.15
+			  else premija
+			  end;
 
-
---Zadatak 11:Dodati podatke o novom odeljenju ?ije je ime Racunovodstvo, a broj odeljenja 60.
-
+--Zadatak 11:Dodati podatke o novom odeljenju cije je ime Racunovodstvo, a broj odeljenja 60.
 
 
 --Zadatak 12:
