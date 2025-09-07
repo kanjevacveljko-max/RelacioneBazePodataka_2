@@ -183,8 +183,19 @@ where id_radnika in (select id_radnika
 
 --Zadatak 21: Prikazati ime, id odeljenja, prosečnu platu za odeljenje. Koristiti izedenu tabelu
 
-
+select ime, r.id_odeljenja, [Prosek plate]
+from (select id_odeljenja, round(avg(plata),2) as [Prosek plate]
+      from radnik
+      group by id_odeljenja) as prosek, radnik r
+where r.id_odeljenja = prosek.id_odeljenja
 
 --Zadatak 22: Prikazati ime i posao radnika koji rade na više od dva projekta. Koristiti CTE (Common Table
 --Expression).
 
+with BrojProjekata as (select id_radnika, count(*) as 'broj'
+                       from ucesce 
+                       group by id_radnika)
+select ime, posao
+from radnik r, BrojProjekata bp
+where r.Id_radnika = bp.Id_radnika 
+      and bp.broj > 2;
