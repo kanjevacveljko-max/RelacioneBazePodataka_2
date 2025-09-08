@@ -193,19 +193,61 @@ where id_radnika in (select id_radnika
 
 
 
---Zadatak 1
+--Zadatak 15:
 --Prikazati ime, prezime, indeks studenta (u jednoj koloni), naziv predmeta i ispitni
 --rok u kome je položen za studente NRT smera.
 
+use STUDENTSKA
 
+select s.ime, s.prezime, concat(s.smer, '-', CONVERT(nvarchar, s.broj),'/', substring(s.godina_upisa,3,2)) as 'Indeks',
+	   p.naziv, ir.naziv
+from student s join zapisnik z on s.id_studenta = z.id_studenta
+	 join ispit i on z.id_ispita = i.id_ispita
+	 join ispitni_rok ir on i.id_roka = ir.id_roka
+	 join predmet p on i.id_predmeta = p.id_predmeta 
+where s.smer = N'nrt' and z.ocena > 5;
 
---Zadatak 2
+--Zadatak 16:
 --Prikazati nazive predmeta koje je položio student indeksa NRT -33/20, a nije položio
 --student indeksa NRT - 16 / 20.
 
+select predmet.naziv
+from predmet join ispit on predmet.id_predmeta = ispit.id_predmeta
+	 join zapisnik on ispit.id_ispita = zapisnik.id_ispita
+	 join student on zapisnik.id_studenta = student.id_studenta
+where student.smer = N'nrt' and
+	  student.broj = 33 and
+	  student. godina_upisa = N'2020' and
+	  ocena > 5
 
+except
 
---Zadatak 3
+select predmet.naziv
+from predmet join ispit on predmet.id_predmeta = ispit.id_predmeta
+	 join zapisnik on ispit.id_ispita = zapisnik.id_ispita
+	 join student on zapisnik.id_studenta = student.id_studenta
+where student.smer = N'nrt' and
+	  student.broj = 16 and
+	  student. godina_upisa = N'2020' and
+	  ocena > 5;
+
+--Zadatak 17:
 --U zavisnosti od ocene promeniti bodove u tabeli zapisnik za junski rok školske
 --2019/20, tako da se za ocenu 5 upiše 45 bodova, oceanu 6 upiše 55 bodova i tako za
 --svaku ocenu po 10 bodova više.
+
+update zapisnik 
+set bodovi = case ocena
+			 when 5 then 45
+			 when 6 then 55
+			 when 6 then 65
+			 when 8 then 75
+			 when 9 then 85
+			 when 10 then 95
+			 end
+where id_ispita in (select id_ispita
+					from ispit
+					where id_roka = (select id_roka 
+									 from ispitni_rok 
+									 where naziv = N'Jun' and 
+										   skolska_god = N'2019/20'));
