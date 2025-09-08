@@ -150,32 +150,44 @@ set premija = case
 
 --Zadatak 11:Dodati podatke o novom odeljenju cije je ime Racunovodstvo, a broj odeljenja 60.
 
+insert into odeljenje
+values (60, N'Racunovodstvo', null, null);
 
 --Zadatak 12:
 
 --a)Kreirati praznu tabelu Penzionisani sa svim atributima kao tabela Radnik.
 
-
+select * into Penzionisani
+from radnik
+where ime = '';
 
 --b) U vec postojecu tabelu PENZIONISANI, sa svim istim atributima kao i tabela RADNIK, prebaciti sve
 --podatke o zaposlenim pre 20.10.1971.
 
-
+insert into Penzionisani
+select *
+from radnik
+where Dat_zap < '1971-10-20';
 
 --Zadatak 13:
 
 --a) Izbrisati sve podatke iz tabele PENZIONISANI (kreirane i popunjene podacima u prethodnom
 --zadatku).
 
-
+delete from Penzionisani;
 
 --b) Ukloniti tabelu PENZIONISANI iz baze.
 
-
+truncate table Penzionisani;
 
 --Zadatak 14: Zaposlene ciji je rukovodilac Pavle ukloniti sa svih projekata.
 
-
+delete from ucesce
+where id_radnika in (select id_radnika
+					 from  radnik
+					 where Rukovodilac = (select id_radnika 
+										  from radnik 
+										  where ime = N'Pavle'));
 
 --*******BAZA STUDENTSKA SLUZBA******--
 
