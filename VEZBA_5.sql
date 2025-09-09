@@ -7,11 +7,11 @@ create function fun_PreduzeceMaxPlata (@imeOdeljenja nchar(20))
 returns float
 as
 begin
-return (select max(plata) 
-		from radnik
-		where id_odeljenja = (select id_odeljenja
-							  from odeljenje
-							  where ime_od = @imeOdeljenja));
+	return (select max(plata) 
+			from radnik
+			where id_odeljenja = (select id_odeljenja
+								  from odeljenje
+								  where ime_od = @imeOdeljenja));
 end
 
 --b) Drugi način
@@ -20,12 +20,12 @@ create function fun_PreduzeceMaxPlata (@imeOdeljenja nchar(20))
 returns float
 as
 begin 
-declare @maxPlata float
-select @maxPlata = max(plata)
-from radnik
-where id_odeljenja = (select id_odeljenja
-							  from odeljenje
-							  where ime_od = @imeOdeljenja)
+	declare @maxPlata float
+	select @maxPlata = max(plata)
+	from radnik
+	where id_odeljenja = (select id_odeljenja
+						  from odeljenje
+						  where ime_od = @imeOdeljenja)
 return @maxPlata
 end
 
@@ -35,12 +35,12 @@ create function fun_PreduzeceMaxPlata (@imeOdeljenja nchar(20))
 returns float
 as
 begin 
-declare @maxPlata float
-set @maxPlata = (select max(plata) 
-				  from radnik
-				  where id_odeljenja = (select id_odeljenja
-										from odeljenje
-										where ime_od = @imeOdeljenja))
+	declare @maxPlata float
+	set @maxPlata = (select max(plata) 
+					 from radnik
+					 where id_odeljenja = (select id_odeljenja
+										   from odeljenje
+										   where ime_od = @imeOdeljenja))
 return @maxPlata
 end;
 
