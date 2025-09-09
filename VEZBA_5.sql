@@ -70,15 +70,28 @@ where plata > dbo.fun_PreduzeceMaxPlata(N'Direkcija')
 --a) Kreirati funkciju fun_Radnik_Staz koja vraća godine staza radnika čije se ime i prezime
 --zadaju.
 
+create function fun_Radnik_Staz
+(@imeRadnika nchar(20), 
+@prezimeRadnika nchar(20))
+returns int
+as
+begin
+	declare @godineStaza int
+	set @godineStaza = (select datediff(yy,dat_zap,getdate())
+						from radnik
+						where ime = @imeRadnika		
+							  and prezime = @prezimeRadnika)
+return @godineStaza
+end
 
 
 --b) Koristeći funkciju fun_Radnik_Staz prikazati godine staža za radnika Luku Boškovića.
 
-
+select dbo.fun_Radnik_Staz(N'Luka', N'Bošković');
 
 --c) Koristeći funkciju fun_Radnik_Staz prikazati godine staža za radnika Luku Bojića.
 
-
+select dbo.fun_Radnik_Staz(N'Luka', N'Bojić');
 
 --Zadatak 4: Modifikovati funkciju fun_Radnik_Staz, tako da za nepostojećeg radnika prikaže broj
 --nula za godine radnog staža, a ne NULL vrednost i uraditi proveru prikaza.
