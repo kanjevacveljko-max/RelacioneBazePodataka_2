@@ -3,31 +3,67 @@
 
 --a) Prvi način
 
-
+create function fun_PreduzeceMaxPlata (@imeOdeljenja nchar(20))
+returns float
+as
+begin
+return (select max(plata) 
+		from radnik
+		where id_odeljenja = (select id_odeljenja
+							  from odeljenje
+							  where ime_od = @imeOdeljenja));
+end
 
 --b) Drugi način
 
-
+create function fun_PreduzeceMaxPlata (@imeOdeljenja nchar(20))
+returns float
+as
+begin 
+declare @maxPlata float
+select @maxPlata = max(plata)
+from radnik
+where id_odeljenja = (select id_odeljenja
+							  from odeljenje
+							  where ime_od = @imeOdeljenja)
+return @maxPlata
+end
 
 --c) Treći način
 
-
+create function fun_PreduzeceMaxPlata (@imeOdeljenja nchar(20))
+returns float
+as
+begin 
+declare @maxPlata float
+set @maxPlata = (select max(plata) 
+				  from radnik
+				  where id_odeljenja = (select id_odeljenja
+										from odeljenje
+										where ime_od = @imeOdeljenja))
+return @maxPlata
+end;
 
 --Zadatak 2:
 
 --a) Koristeći funkciju fun_PreduzeceMaxPlata prikazati najveću platu u odeljenju Plan.
 
-
+select dbo.fun_PreduzeceMaxPlata(N'Plan')
 
 --b) Prikazati ime odeljenja u kome radi radnik sa najvećom platom primenom funkcije
 --funkciju fun_PreduzeceMaxPlata.
 
-
+select ime_od
+from odeljenje
+where dbo.fun_PreduzeceMaxPlata(ime_od) =
+	  (select max(plata) from radnik)
 
 --c) Prikazati imena i prezimena radnika koji imaju platu veću od maksimalne
 --plate u odeljenju Derekcija.
 
-
+select ime, prezime
+from radnik
+where plata > dbo.fun_PreduzeceMaxPlata(N'Direkcija')
 
 --Zadatak 3:
 
@@ -75,4 +111,4 @@
 
 --b) Prikazati imena i prezimena studenata i broj ispita koje su položili za studente koji su položili
 --više od 6 ispita. Koristiti funkciju fun_StudentBrojIspita.
-
+
