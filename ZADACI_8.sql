@@ -61,7 +61,7 @@ begin
 			print ('Uspesna transakcija')
 		end try
 		begin catch
-			if @@TRANCOUNT > 0
+			if @@TRANCOUNT > 2
 			rollback transaction
 			declare @ErrorMessage nvarchar(4000) = ERROR_MESSAGE();
 			declare @ErrorSeverity int = ERROR_SEVERITY();
