@@ -1,4 +1,7 @@
-﻿--Zadatak 1a. Prikazati sve podatke iz tabele radnik.
+﻿use PREDUZECE
+go
+
+--Zadatak 1a. Prikazati sve podatke iz tabele radnik.
 
 select *
 from radnik

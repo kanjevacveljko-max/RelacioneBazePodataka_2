@@ -1,4 +1,7 @@
-﻿--Zadatak 1: Implementirati funkciju fun_PreduzeceMaxPlata koja vraća najveću platu u zadatom
+﻿use PREDUZECE
+go
+
+--Zadatak 1: Implementirati funkciju fun_PreduzeceMaxPlata koja vraća najveću platu u zadatom
 --odeljenju.
 
 --a) Prvi način
@@ -136,6 +139,7 @@ where r.Id_radnika = u.Id_radnika and
 --studenta vraća broj položenih ispita.
 
 use STUDENTSKA
+go
 
 create function fun_StudentBrojIspita(@id int)
 returns int

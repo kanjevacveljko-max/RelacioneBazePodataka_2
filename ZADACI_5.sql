@@ -1,4 +1,7 @@
-﻿--1. Kreirati funkcija fun_PredmetProsek1 koja u zavisnosti od prosleđenog naziva predmeta
+﻿use STUDENTSKA
+go
+
+--1. Kreirati funkcija fun_PredmetProsek1 koja u zavisnosti od prosleđenog naziva predmeta
 --vraća prosečnu ocenu na tom predmetu.
 
 create function fun_PredmetProsek1(@naziv nvarchar(30))

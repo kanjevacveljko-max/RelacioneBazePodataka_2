@@ -1,4 +1,5 @@
-﻿--4.1 POGLEDI – CREATE VIEW
+﻿use PREDUZECE
+go
 
 --Zadatak 1:
 
@@ -54,7 +55,6 @@ where id_radnika in (select sef_odeljenja
 	from View_Rukovodioci_Sefovi
 	group by ime, prezime
 
---4.2 POGLEDI – ALTER VIEW I DROP VIEW
 
 --Zadatak 4:
 
@@ -124,14 +124,17 @@ group by o.Id_odeljenja, o.Ime_od
 
 drop view View_UkupnaSredstva
 
---4.3 POGLEDI – ENKRIPCIJA
+
 
 --Zadatak 6:
 
 --a) Kreirati pogled View_NRT koji prikazuje identifikacioni broj studenta, ime, prezime i
 --indeks u jednoj koloni za studente smera NRT.
+
+
 use STUDENTSKA
 go
+
 
 create view View_NRT 
 as

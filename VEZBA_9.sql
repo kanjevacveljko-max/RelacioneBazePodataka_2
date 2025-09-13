@@ -1,4 +1,7 @@
-﻿--Zadatak 1:
+﻿use PREDUZECE
+go
+
+--Zadatak 1:
 
 --a) Kreirati upit koji kreira novu tabelu OdeljenjeLog sa atributima ime_od, mesto,
 --datum_dodavanja i korisnik.

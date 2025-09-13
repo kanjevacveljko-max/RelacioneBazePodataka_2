@@ -1,3 +1,6 @@
+use STUDENTSKA
+go
+
 --1. Kreirati pogled View_Student_Prosek koji prikazuje indeks, ime, prezime i prosecnu ocenui smer
 --svih studenata.
 

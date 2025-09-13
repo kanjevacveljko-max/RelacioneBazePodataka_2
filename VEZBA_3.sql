@@ -1,3 +1,6 @@
+use PREDUZECE
+go
+
 --Zadatak 1: Prikazati za svakog radnika ime, posao, kao i broj odeljenja, 
 --naziv i mesto odeljenja u kome radi.
 
@@ -191,7 +194,8 @@ where id_radnika in (select id_radnika
 
 --*******BAZA STUDENTSKA SLUZBA******--
 
-
+use STUDENTSKA
+go
 
 --Zadatak 15:
 --Prikazati ime, prezime, indeks studenta (u jednoj koloni), naziv predmeta i ispitni

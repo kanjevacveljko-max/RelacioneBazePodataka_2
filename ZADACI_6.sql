@@ -1,4 +1,7 @@
-﻿--1. Kreirati funkciju fun_StudentOcena1 koja će na osnovu prosleđenog identifikacionog broja
+﻿use STUDENTSKA
+go
+
+--1. Kreirati funkciju fun_StudentOcena1 koja će na osnovu prosleđenog identifikacionog broja
 --studenta prikazati nazive predmeta koje je student položio i ocenu koju je dobio. Koristiti
 --ITVF.
 

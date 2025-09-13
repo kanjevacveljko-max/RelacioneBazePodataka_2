@@ -1,4 +1,7 @@
-﻿--1. Prikazati ime, prezime i indeks studenta (u jednoj koloni), kao i naziv predmeta za sve predmete
+﻿use STUDENTSKA
+go
+
+--1. Prikazati ime, prezime i indeks studenta (u jednoj koloni), kao i naziv predmeta za sve predmete
 --koje su student položili u roku Februar, 2018/19.
 
 select s.ime, s.prezime, 

@@ -1,4 +1,5 @@
-﻿--6.1 Tabelarne funkcije (INLINE TABLE-VALUED FUNKCIJE (ITVF))
+﻿use PREDUZECE
+go
 
 --Zadatak 1:
 

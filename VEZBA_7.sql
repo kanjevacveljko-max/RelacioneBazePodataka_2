@@ -1,4 +1,5 @@
-﻿--7.1 Uskladištene procedure
+﻿use PREDUZECE
+go
 
 --Zadatak 1:
 

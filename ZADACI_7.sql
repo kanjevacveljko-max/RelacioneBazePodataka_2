@@ -1,4 +1,7 @@
-﻿--1. Kreirati uskladištenu proceduru SP_NoviPredmet koja dodaje podatke o novom predmetu, a
+﻿use STUDENTSKA
+go
+
+--1. Kreirati uskladištenu proceduru SP_NoviPredmet koja dodaje podatke o novom predmetu, a
 --kojoj se prosleđuje naziv predmeta, broj ESPB bodova, status, kao ime i prezime profesora
 --koji ga predaje.
 

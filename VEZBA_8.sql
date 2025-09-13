@@ -1,4 +1,5 @@
-﻿--8.1 Transakcije
+﻿use studentska 
+go
 
 --Zadatak 1:
 

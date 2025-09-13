@@ -1,4 +1,7 @@
-﻿--1. Prikazati sve podatke o radnicima koji imaju platu manju od 1500 ili im ime završava slovom
+﻿use PREDUZECE
+go
+
+--1. Prikazati sve podatke o radnicima koji imaju platu manju od 1500 ili im ime završava slovom
 --A. Prikazati samo prva tri zapisa.
 
 select * 

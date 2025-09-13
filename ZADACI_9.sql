@@ -1,4 +1,7 @@
-﻿--1. Kreirati triger trig_Proјekat koji će za bilo koju promenu nad tabelom Projekat prikazati stare
+﻿use PREDUZECE
+go
+
+--1. Kreirati triger trig_Proјekat koji će za bilo koju promenu nad tabelom Projekat prikazati stare
 --i nove podatke iz te tabele.
 
 alter trigger trig_Projekat

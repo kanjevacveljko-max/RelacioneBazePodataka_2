@@ -1,4 +1,7 @@
-﻿--1. Kreirati uskladištenu procedure SP_ProjekatSredstva sa primenom transakcije koja kao
+﻿use PREDUZECE
+go
+
+--1. Kreirati uskladištenu procedure SP_ProjekatSredstva sa primenom transakcije koja kao
 --ulazni parameter dobija ime projekta. Ako su sredstva za taj projekat veća od prosečnih
 --sredstava za sve projekte smanjiti sredstva na prosečna, a ako su manja ne raditi promene.
 
