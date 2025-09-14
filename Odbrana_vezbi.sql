@@ -4,7 +4,13 @@
 --2. Prikazati ime i prezime studenta u jednoj koloni, indeks u drugoj, i prose?nu ocenu zaokruženu 
 --   na dve decimale. Sortirati po prosecnoj oceni u opadajecem redosledu.
 
-
+select concat(s.ime,' ',s.prezime) as ime_i_prezime,
+	   concat(s.smer, '-', cast(s.broj as varchar), '/', substring(s.godina_upisa, 3, 2)) as indeks,
+	   round(avg(z.ocena), 2) as prosecna_ocena
+from student s inner join zapisnik z on s.id_studenta = z.id_studenta
+where z.ocena >= 6
+group by s.id_studenta, s.ime, s.prezime, s.smer, s.broj, s.godina_upisa
+order by prosecna_ocena desc
 
 --3. Prikazati indeks studenta i ocene iz predmeta Mikroprocesorski softver, dodati kolonu u kojoj 
 --   ce pisati Položeno ako je ocena 6 ili više, u suprotnom Nije položeno.
