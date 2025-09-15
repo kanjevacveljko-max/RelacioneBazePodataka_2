@@ -15,6 +15,16 @@ order by prosecna_ocena desc
 --3. Prikazati indeks studenta i ocene iz predmeta Mikroprocesorski softver, dodati kolonu u kojoj 
 --   ce pisati Položeno ako je ocena 6 ili više, u suprotnom Nije položeno.
 
+select concat(s.smer, '-', cast(s.broj as varchar), '/', substring(s.godina_upisa, 3, 2)) as indeks,
+	   z.ocena, 
+	   case 
+			when z.ocena < 6 then N'Nije polozeno'
+			else N'Polozeno'
+		end as Status
+from student s join zapisnik z on s.id_studenta = z.id_studenta
+	 join predmet p on p.id_predmeta = z.id_predmeta
+where p
+
 --4. Promeniti status predmeta Programski jezici u obavezan.
 
 update predmet
@@ -23,6 +33,13 @@ where naziv = 'Programski jezici'
 
 --5. Koisteci pogled View_Student_Ispit koji prikazuje sve studenta smera NRT, broj ispita koje su 
 --   pložili i njihovu prosecnu ocenu.
+
+select concat(s.smer, '-', cast(s.broj as varchar), '/', substring(s.godina_upisa, 3, 2)),
+	   s.ime, s.prezime, count(z.ocena) as broj_polozenih,
+	   round(avg(z.ocena), 2) as prosecna_ocena
+from student s join zapisnik z on s.id_studenta = z.id_studenta
+where s.smer = 'NRT' and z.ocena >= 6
+group by z.id_studenta, s.ime, s.prezime, s.smer, s.broj, s.godina_upisa
 
 --6. Kreirati funkcija fun_PredmetProsek koja u zavisnosti od prosledjenog naziva predmeta vraca prosecnu
 --   ocenu na tom predmetu. Prikazati prosecnu ocenu za predmet Baze podataka koristeci funkciju fun_PredmetProsek.
