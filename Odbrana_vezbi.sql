@@ -1,6 +1,8 @@
 --1. Potrebno je kreirati proizvoljnu bazu podataka koja sadrži dve tabele, postaviti primarne kljuceve 
 --   i povezati tabele. 
 
+create database 
+
 --2. Prikazati ime i prezime studenta u jednoj koloni, indeks u drugoj, i prose?nu ocenu zaokruženu 
 --   na dve decimale. Sortirati po prosecnoj oceni u opadajecem redosledu.
 
