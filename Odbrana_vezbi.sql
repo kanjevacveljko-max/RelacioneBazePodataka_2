@@ -98,3 +98,10 @@ where z.ocena >= 6 and
 
 --10 Kreirati triger trig_Student koji ce za bilo koju promenu nad tabelom Student prikazati stare i 
 --   nove podatke iz te tabele.
+
+create trigger trig_Student 
+on student
+after update
+as
+begin
+	
