@@ -12,6 +12,7 @@ where z.ocena >= 6
 group by s.id_studenta, s.ime, s.prezime, s.smer, s.broj, s.godina_upisa
 order by prosecna_ocena desc
 
+
 --3. Prikazati indeks studenta i ocene iz predmeta Mikroprocesorski softver, dodati kolonu u kojoj 
 --   ce pisati Položeno ako je ocena 6 ili više, u suprotnom Nije položeno.
 
@@ -25,11 +26,13 @@ from student s join zapisnik z on s.id_studenta = z.id_studenta
 	 join predmet p on p.id_predmeta = z.id_predmeta
 where p
 
+
 --4. Promeniti status predmeta Programski jezici u obavezan.
 
 update predmet
 set status = 'obavezan'
 where naziv = 'Programski jezici'
+
 
 --5. Koisteci pogled View_Student_Ispit koji prikazuje sve studenta smera NRT, broj ispita koje su 
 --   pložili i njihovu prosecnu ocenu.
@@ -40,6 +43,7 @@ select concat(s.smer, '-', cast(s.broj as varchar), '/', substring(s.godina_upis
 from student s join zapisnik z on s.id_studenta = z.id_studenta
 where s.smer = 'NRT' and z.ocena >= 6
 group by z.id_studenta, s.ime, s.prezime, s.smer, s.broj, s.godina_upisa
+
 
 --6. Kreirati funkcija fun_PredmetProsek koja u zavisnosti od prosledjenog naziva predmeta vraca prosecnu
 --   ocenu na tom predmetu. Prikazati prosecnu ocenu za predmet Baze podataka koristeci funkciju fun_PredmetProsek.
@@ -62,8 +66,25 @@ end
 
 select dbo.fun_PredmetProsek(N'Baze podataka');
 
---7. Kreirati funkciju fun_StudentOcena koja ce na osnovu prosle?enog identifikacionog broja studenta
+
+--7. Kreirati funkciju fun_StudentOcena koja ce na osnovu prosledjenog identifikacionog broja studenta
 --   prikazati nazive predmeta koje je student položio i ocenu koju je dobio. 
+
+create function fun_StudentOcena(@idStudenta int)
+returns table
+as
+return
+(
+select p.naziv, z.ocena
+from student s inner join zapisnik z 
+	 on s.id_studenta = z.id_studenta
+	 join ispit i
+	 on i.id_ispita = z.id_ispita
+	 join predmet p
+	 on p.id_predmeta = i.id_predmeta
+where z.ocena >= 6 and
+	  s.id_studenta = 1
+)
 
 --8. Kreirati proceduru SP_StudentiPredmeti kojoj se prosle?uje identifikacioni broj studenta.
 --   Za studenta koji je izabrao manje od tri predmeta potrebno je da se vrati poruka 
