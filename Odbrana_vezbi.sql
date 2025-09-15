@@ -44,6 +44,24 @@ group by z.id_studenta, s.ime, s.prezime, s.smer, s.broj, s.godina_upisa
 --6. Kreirati funkcija fun_PredmetProsek koja u zavisnosti od prosledjenog naziva predmeta vraca prosecnu
 --   ocenu na tom predmetu. Prikazati prosecnu ocenu za predmet Baze podataka koristeci funkciju fun_PredmetProsek.
 
+create function fun_PredmetProsek(@naziv nvarchar(30))
+returns real
+as
+begin
+return
+(select avg(z.ocena)
+from zapisnik z inner join ispit i 
+	 on z.id_ispita = i.id_ispita 
+	 join predmet p 
+	 on p.id_predmeta = i.id_predmeta
+where z.ocena >= 6
+group by p.naziv
+having p.naziv = N'Baze podataka'
+)
+end
+
+select dbo.fun_PredmetProsek(N'Baze podataka');
+
 --7. Kreirati funkciju fun_StudentOcena koja ce na osnovu prosle?enog identifikacionog broja studenta
 --   prikazati nazive predmeta koje je student položio i ocenu koju je dobio. 
 
