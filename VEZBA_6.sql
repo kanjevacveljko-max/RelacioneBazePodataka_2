@@ -1,6 +1,4 @@
-﻿use PREDUZECE
-go
-
+﻿
 --Zadatak 1:
 
 --a) Kreirati funkciju fun_Posao, koja za zadato ime i prezime radnika vraća posao,
