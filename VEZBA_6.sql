@@ -4,35 +4,7 @@ go
 
 
 
---Zadatak 3:
 
---a) Kreirati funkciju fun_RadnikOdeljenje koja u zavisnosti od prosleđenog mesta odeljenja
---prikazuje ime, prezime i posao radnika kao i ime odlejenja u kome radi.
-
-create function fun_RadnikOdeljenje
-(@mestoOd nchar(50))
-returns table
-as
-return
-(
-	select r.ime, r.prezime, r.posao, o.ime_od
-	from radnik r join odeljenje o
-		 on r.id_odeljenja = o.Id_odeljenja
-	where mesto = @mestoOd
-);
-
---b) Prikazati ime, prezime, posao i naziv odeljenja za radnike koji rade na Dorćolu. Koristiti
---funkciju fun_RadnikOdeljenje.
-
-select *
-from dbo.fun_RadnikOdeljenje(N'Dorćol');
-
---c) Prikazati ime, prezime, posao i naziv odeljenja za radnike koji rade na Dorćolu, a imaju
---posao analitičara. Koristiti funkciju fun_RadnikOdeljenje.
-
-select *
-from dbo.fun_RadnikOdeljenje(N'Dorćol')
-where posao = N'analitičar';
 
 --6.2 Tabelarne funkcije (MULTISTATEMENT TABLE-VALUED FUNKCIJE (MSTVF))
 
