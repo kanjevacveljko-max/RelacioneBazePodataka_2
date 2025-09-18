@@ -6,7 +6,6 @@ go
 
 
 
---6.2 Tabelarne funkcije (MULTISTATEMENT TABLE-VALUED FUNKCIJE (MSTVF))
 
 
 
