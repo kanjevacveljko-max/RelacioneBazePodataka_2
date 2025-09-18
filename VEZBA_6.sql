@@ -1,28 +1,6 @@
 ﻿use PREDUZECE
 go
 
---Zadatak 1:
-
---a) Kreirati funkciju fun_Posao, koja za zadato ime i prezime radnika vraća posao,
---kvalifikaciju i primanja.
-
-create function fun_Posao
-(@ime nchar(20),
-@prezime nchar(20))
-returns table
-as
-return
-(
-	select  posao, kvalif, plata + isnull(premija, 0) as primanja
-	from radnik
-	where ime = @ime and prezime = @prezime
-);
-
---b) Prikazati posao koji obavlja radnik Petar Vasić , njegovu kvalifikaciju i primanja koristeći
---funkciju fun_Posao.
-
-select * 
-from dbo.fun_Posao(N'Petar', N'Vasić');
 
 --Zadatak 2:
 
