@@ -2,31 +2,7 @@
 go
 
 
---Zadatak 2:
 
---a) Kreirati funkciju fun_OdeljenjeProsek koja vraća imena odeljenja i prosečna primanja u
---njima samo za odeljenja u kojima su prosečna primanja veća od zadatih. Prikaz
---primanja zaokružiti na dve decimale.
-
-create function fun_OdeljenjeProsek(@primanja float)
-returns table
-as
-return
-(
-	select ime_od, round(avg(plata + isnull(premija, 0)), 2) as prosecna_primanja
-	from radnik, odeljenje
-	where radnik.Id_odeljenja = odeljenje.Id_odeljenja
-	group by odeljenje.id_odeljenja, ime_od
-	having avg(plata+isnull(premija,0))  > @primanja
-);
-
---b) Napisati upit koji vraća imena odeljena i prosečna primanja u njima za odeljenja u kojima su
---prosečna primanja veća od 2000 koristeći funkciju fun_OdeljenjeProsek . Sortirati po imenu
---odeljenja rastuće.
-
-select *
-from dbo.fun_OdeljenjeProsek(2000)
-order by Ime_od
 
 --Zadatak 3:
 
